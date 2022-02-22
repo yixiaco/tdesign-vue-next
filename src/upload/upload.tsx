@@ -1,7 +1,8 @@
-import { VNode, defineComponent } from 'vue';
+import { VNode, defineComponent, ref } from 'vue';
+import { UploadIcon } from 'tdesign-icons-vue-next';
+
 import findIndex from 'lodash/findIndex';
 import isFunction from 'lodash/isFunction';
-import { UploadIcon } from 'tdesign-icons-vue-next';
 import mixins from '../utils/mixins';
 import getConfigReceiverMixins, { UploadConfig } from '../config-provider/config-receiver';
 import { prefix } from '../config';
@@ -14,8 +15,9 @@ import TDialog from '../dialog';
 import SingleFile from './single-file';
 import { renderContent } from '../utils/render-tnode';
 import props from './props';
-import { ClassName, SlotReturnValue } from '../common';
+import { SlotReturnValue } from '../common';
 import { emitEvent } from '../utils/event';
+import { isOverSizeLimit } from './util';
 import {
   HTMLInputEvent,
   SuccessContext,
@@ -29,80 +31,50 @@ import {
   UploadFile,
   UploadRemoveContext,
   RequestMethodResponse,
-  SizeUnit,
   SizeLimitObj,
 } from './type';
+
+import { useComponentsClass, useComponentsStatus } from './hooks';
 
 // hooks
 import { useFormDisabled } from '../form/hooks';
 
 const name = `${prefix}-upload`;
 
-/**
- * [*] 表示方法采用这种方式
- * [x] 表示方法不采用这种方式
- *
- * [x] bit      位              b     0 or 1
- * [*] byte     字节            B     8 bits
- * [x] kilobit  千位            kb    1000 bites
- * [*] kilobyte 千字节(二进制)   KB    1024 bytes
- * [x] kilobyte 千字节(十进制)   KB    1000 bytes
- * [x] Megabite 百万位          Mb    1000 kilobits
- * [*] Megabyte 兆字节(二进制)   KB    1024 kilobytes
- * [*] Megabyte 兆字节(十进制)   KB    1000 kilobytes
- * [x] Gigabit  万亿位          Gb    1000 Megabite
- * [*] Gigabyte 吉字节(二进制)   GB    1024 Megabytes
- * [x] Gigabyte 吉字节(十进制)   GB    1000 Megabytes
- */
-
-// 各个单位和 KB 的关系
-const SIZE_MAP = {
-  B: 1024,
-  KB: 1,
-  MB: 1048576, // 1024 * 1024
-  GB: 1073741824, // 1024 * 1024 * 1024
-};
-
-/**
- * 大小比较
- * @param size 文件大小
- * @param unit 计算机计量单位
- */
-function isOverSizeLimit(fileSize: number, sizeLimit: number, unit: SizeUnit) {
-  // 以 KB 为单位进行比较
-  const units = ['B', 'KB', 'MB', 'GB'];
-  const KB_INDEX = 1;
-  let index = units.indexOf(unit);
-  if (index === -1) {
-    console.warn(`TDesign Upload Warn: \`sizeLimit.unit\` can only be one of ${units.join()}`);
-    index = KB_INDEX;
-  }
-  const num = SIZE_MAP[unit];
-  const limit = index < KB_INDEX ? sizeLimit / num : sizeLimit * num;
-  return fileSize <= limit;
-}
-
 export default defineComponent({
   ...mixins(getConfigReceiverMixins<UploadConfig>('upload')),
   name: 'TUpload',
 
   components: {
-    TButton,
     Dragger,
     SingleFile,
-    ImageCard,
     FlowList,
-    TDialog,
   },
 
   props: { ...props },
-  setup() {
+  setup(props) {
+    const context = ref({
+      dragActive: false,
+      // 加载中的文件
+      loadingFile: null as UploadFile,
+      // 等待上传的文件队列
+      toUploadFiles: [],
+      errorMsg: '',
+      showImageViewDialog: false,
+      showImageViewUrl: '',
+      xhrReq: null as XMLHttpRequest,
+    });
+
     const disabled = useFormDisabled();
+
+    const componentStatus = useComponentsStatus(props, context);
+
     return {
       disabled,
+      ...componentStatus,
+      ...useComponentsClass(),
     };
   },
-
   data() {
     return {
       dragActive: false,
@@ -115,48 +87,6 @@ export default defineComponent({
       showImageViewUrl: '',
       xhrReq: null as XMLHttpRequest,
     };
-  },
-
-  computed: {
-    // 默认文件上传风格：文件进行上传和上传成功后不显示 tips
-    showTips(): boolean {
-      if (this.theme === 'file') {
-        const hasNoFile = (!this.files || !this.files.length) && !this.loadingFile;
-        return this.tips && hasNoFile;
-      }
-      return Boolean(this.tips);
-    },
-    // 完全自定义上传
-    showCustomDisplay(): boolean {
-      return this.theme === 'custom';
-    },
-    // 单文件非拖拽类文件上传
-    showSingleDisplay(): boolean {
-      return !this.draggable && ['file', 'file-input'].includes(this.theme);
-    },
-    // 单文件非拖拽勒图片上传
-    showImgCard(): boolean {
-      return !this.draggable && this.theme === 'image';
-    },
-    // 拖拽类单文件或图片上传
-    singleDraggable(): boolean {
-      return !this.multiple && this.draggable && ['file', 'file-input', 'image'].includes(this.theme);
-    },
-    showUploadList(): boolean {
-      return this.multiple && ['file-flow', 'image-flow'].includes(this.theme);
-    },
-    showImgDialog(): boolean {
-      return ['image', 'image-flow', 'custom'].includes(this.theme);
-    },
-    showErrorMsg(): boolean {
-      return !this.showUploadList && !!this.errorMsg;
-    },
-    tipsClasses(): ClassName {
-      return [`${name}__tips ${prefix}-size-s`];
-    },
-    errorClasses(): ClassName {
-      return this.tipsClasses.concat(`${name}__tips-error`);
-    },
   },
 
   methods: {
@@ -580,7 +510,7 @@ export default defineComponent({
     },
   },
 
-  render(): VNode {
+  render() {
     const triggerElement = this.renderTrigger();
     return (
       <div class={`${name}`}>
@@ -588,19 +518,21 @@ export default defineComponent({
         {this.showCustomDisplay && this.renderCustom(triggerElement)}
         {this.showSingleDisplay && this.renderSingleDisplay(triggerElement)}
         {this.singleDraggable && this.renderDraggerTrigger()}
+
         {this.showImgCard && (
           <ImageCard
             files={this.files}
             multiple={this.multiple}
-            remove={this.handleMultipleRemove}
             trigger={this.triggerUpload}
             loadingFile={this.loadingFile}
             toUploadFiles={this.toUploadFiles}
             max={this.max}
-            onImgPreview={this.handlePreviewImg}
             disabled={this.disabled}
-          ></ImageCard>
+            onRemove={this.handleMultipleRemove}
+            onImgPreview={this.handlePreviewImg}
+          />
         )}
+
         {this.showUploadList && (
           <flow-list
             files={this.files}
@@ -622,6 +554,7 @@ export default defineComponent({
             </div>
           </flow-list>
         )}
+
         {this.showImgDialog && (
           <TDialog
             visible={this.showImageViewDialog}
@@ -638,6 +571,7 @@ export default defineComponent({
             </div>
           </TDialog>
         )}
+
         {!this.errorMsg && this.showTips && <small class={this.tipsClasses}>{this.tips}</small>}
         {this.showErrorMsg && <small class={this.errorClasses}>{this.errorMsg}</small>}
       </div>

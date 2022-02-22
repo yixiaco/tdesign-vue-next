@@ -1,72 +1,75 @@
-import { defineComponent, PropType } from 'vue';
-import { AddIcon, DeleteIcon, UploadIcon, BrowseIcon } from 'tdesign-icons-vue-next';
-import { UploadFile } from './type';
+import { defineComponent, PropType, computed } from 'vue';
+
+// components
+import { AddIcon, DeleteIcon, BrowseIcon } from 'tdesign-icons-vue-next';
 import TLoading from '../loading';
+
+import CLASSNAMES from '../utils/classnames';
+import { UploadFile } from './type';
+import props from './props';
 import { UploadRemoveOptions } from './interface';
 import { UPLOAD_NAME } from './util';
-import props from './props';
-import CLASSNAMES from '../utils/classnames';
 import { prefix } from '../config';
 
 // hooks
 import { useFormDisabled } from '../form/hooks';
 
-const imageProps = {
+const ImageProps = {
   showUploadProgress: props.showUploadProgress,
-  files: {
-    type: Array as PropType<Array<UploadFile>>,
+  files: props.files,
+  multiple: props.multiple,
+  max: props.max,
+  trigger: {
+    type: Function as PropType<(e: MouseEvent) => void>,
+  },
+  disabled: Boolean,
+  onRemove: {
+    type: Function as PropType<(options: UploadRemoveOptions) => void>,
+  },
+  onImgPreview: {
+    type: Function as PropType<(options: MouseEvent, file: UploadFile) => void>,
   },
   loadingFile: {
     type: Object as PropType<UploadFile>,
   },
-  trigger: {
-    type: Function as PropType<(e: MouseEvent) => void>,
-  },
-  remove: {
-    type: Function as PropType<(options: UploadRemoveOptions) => void>,
-  },
-  multiple: Boolean,
-  max: Number,
-  disabled: Boolean,
 };
 
 export default defineComponent({
   name: 'TImageUpload',
 
-  components: {
-    AddIcon,
-    DeleteIcon,
-    UploadIcon,
-    BrowseIcon,
-    TLoading,
-  },
-  props: imageProps,
+  props: ImageProps,
 
-  emits: ['img-preview'],
-
-  setup() {
+  setup(props) {
     const disabled = useFormDisabled();
-    return {
-      disabled,
-    };
-  },
-
-  computed: {
-    showTrigger(): boolean {
-      if (this.multiple) {
-        return !this.max || (this.files && this.files.length < this.max);
+    const showTrigger = computed(() => {
+      const { multiple, max, files } = props;
+      if (multiple) {
+        return !max || (files && files.length < max);
       }
-      return !(this.files && this.files[0]);
-    },
-  },
+      return !(files && files[0]);
+    });
 
-  methods: {
-    onMaskClick(e: MouseEvent) {
-      !this.showTrigger && this.trigger(e);
-    },
-    onViewClick(e: MouseEvent, file?: UploadFile) {
-      this.$emit('img-preview', e, file);
-    },
+    const onMaskClick = (e: MouseEvent) => {
+      !showTrigger.value && props.trigger(e);
+    };
+
+    const onViewClick = (e: MouseEvent, file?: UploadFile) => {
+      e.stopPropagation();
+      props.onImgPreview(e, file);
+    };
+
+    const onRemoveClick = (e: MouseEvent, index: number, file?: UploadFile) => {
+      e.stopPropagation();
+      props.onRemove({ e, file, index });
+    };
+
+    return {
+      onMaskClick,
+      showTrigger,
+      disabled,
+      onViewClick,
+      onRemoveClick,
+    };
   },
 
   render() {
@@ -78,17 +81,13 @@ export default defineComponent({
               <div class={`${UPLOAD_NAME}__card-content ${UPLOAD_NAME}__card-box`}>
                 <img class={`${UPLOAD_NAME}__card-image`} src={file.url} />
                 <div class={`${UPLOAD_NAME}__card-mask`} onClick={this.onMaskClick}>
-                  <span class={`${UPLOAD_NAME}__card-mask-item`} onClick={(e: MouseEvent) => e.stopPropagation()}>
+                  <span class={`${UPLOAD_NAME}__card-mask-item`}>
                     <BrowseIcon onClick={({ e }: { e: MouseEvent }) => this.onViewClick(e, file)} />
                   </span>
                   {!this.disabled && [
                     <span class={`${UPLOAD_NAME}__card-mask-item-divider`} key="divider"></span>,
-                    <span
-                      class={`${UPLOAD_NAME}__card-mask-item`}
-                      onClick={(e: MouseEvent) => e.stopPropagation()}
-                      key="delete-icon"
-                    >
-                      <DeleteIcon onClick={({ e }: { e: MouseEvent }) => this.remove({ e, file, index })} />
+                    <span class={`${UPLOAD_NAME}__card-mask-item`} key="delete-icon">
+                      <DeleteIcon onClick={({ e }: { e: MouseEvent }) => this.onRemoveClick(e, index, file)} />
                     </span>,
                   ]}
                 </div>
@@ -99,9 +98,7 @@ export default defineComponent({
           <li
             class={[
               `${UPLOAD_NAME}__card-item ${prefix}-is--background`,
-              {
-                [CLASSNAMES.STATUS.disabled]: this.disabled,
-              },
+              { [CLASSNAMES.STATUS.disabled]: this.disabled },
             ]}
             onClick={this.trigger}
           >
@@ -112,7 +109,7 @@ export default defineComponent({
               </div>
             ) : (
               <div class={`${UPLOAD_NAME}__card-container ${UPLOAD_NAME}__card-box`}>
-                <AddIcon></AddIcon>
+                <AddIcon />
                 <p class={`${prefix}-size-s`}>点击上传图片</p>
               </div>
             )}
