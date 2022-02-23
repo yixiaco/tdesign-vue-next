@@ -3,6 +3,7 @@ import { UploadIcon } from 'tdesign-icons-vue-next';
 
 import findIndex from 'lodash/findIndex';
 import isFunction from 'lodash/isFunction';
+
 import mixins from '../utils/mixins';
 import getConfigReceiverMixins, { UploadConfig } from '../config-provider/config-receiver';
 import { prefix } from '../config';
@@ -44,12 +45,6 @@ const name = `${prefix}-upload`;
 export default defineComponent({
   ...mixins(getConfigReceiverMixins<UploadConfig>('upload')),
   name: 'TUpload',
-
-  components: {
-    Dragger,
-    SingleFile,
-    FlowList,
-  },
 
   props: { ...props },
   setup(props) {
@@ -448,11 +443,11 @@ export default defineComponent({
     // 渲染单文件预览：设计稿有两种单文件预览方式，文本型和输入框型。输入框型的需要在右侧显示「删除」按钮
     renderSingleDisplay(triggerElement: SlotReturnValue) {
       return (
-        <single-file
+        <SingleFile
           file={this.files && this.files[0]}
           loadingFile={this.loadingFile}
-          display={this.theme}
-          remove={this.handleSingleRemove}
+          theme={this.theme}
+          onRemove={this.handleSingleRemove}
           showUploadProgress={this.showUploadProgress}
           placeholder={this.placeholder}
         >
@@ -464,7 +459,7 @@ export default defineComponent({
               </TButton>
             )}
           </div>
-        </single-file>
+        </SingleFile>
       );
     },
     renderDraggerTrigger() {
@@ -477,22 +472,22 @@ export default defineComponent({
         triggerElement = {};
       }
       return (
-        <dragger
+        <Dragger
           showUploadProgress={this.showUploadProgress}
+          loadingFile={this.loadingFile}
+          file={this.files && this.files[0]}
+          theme={this.theme}
+          autoUpload={this.autoUpload}
           onChange={this.handleDragChange}
           onDragenter={this.handleDragenter}
           onDragleave={this.handleDragleave}
-          loadingFile={this.loadingFile}
-          file={this.files && this.files[0]}
-          display={this.theme}
-          cancel={this.cancelUpload}
-          trigger={this.triggerUpload}
-          remove={this.handleSingleRemove}
-          upload={this.upload}
-          autoUpload={this.autoUpload}
+          onCancel={this.cancelUpload}
+          onClick={this.triggerUpload}
+          onRemove={this.handleSingleRemove}
+          onUpload={this.upload}
         >
           {triggerElement}
-        </dragger>
+        </Dragger>
       );
     },
     renderTrigger() {
@@ -522,37 +517,37 @@ export default defineComponent({
         {this.showImgCard && (
           <ImageCard
             files={this.files}
-            multiple={this.multiple}
-            trigger={this.triggerUpload}
             loadingFile={this.loadingFile}
-            toUploadFiles={this.toUploadFiles}
+            showUploadProgress={this.showUploadProgress}
+            multiple={this.multiple}
             max={this.max}
             disabled={this.disabled}
+            onClick={this.triggerUpload}
             onRemove={this.handleMultipleRemove}
             onImgPreview={this.handlePreviewImg}
           />
         )}
 
         {this.showUploadList && (
-          <flow-list
+          <FlowList
             files={this.files}
             placeholder={this.placeholder}
             autoUpload={this.autoUpload}
             toUploadFiles={this.toUploadFiles}
-            remove={this.handleListRemove}
-            upload={this.multipleUpload}
-            cancel={this.cancelUpload}
-            display={this.theme}
+            theme={this.theme}
+            showUploadProgress={this.showUploadProgress}
+            onRemove={this.handleListRemove}
+            onUpload={this.multipleUpload}
+            onCancel={this.cancelUpload}
             onImgPreview={this.handlePreviewImg}
             onChange={this.handleDragChange}
             onDragenter={this.handleDragenter}
-            showUploadProgress={this.showUploadProgress}
             onDragleave={this.handleDragleave}
           >
             <div class={`${name}__trigger`} onclick={this.triggerUpload}>
               {triggerElement}
             </div>
-          </flow-list>
+          </FlowList>
         )}
 
         {this.showImgDialog && (

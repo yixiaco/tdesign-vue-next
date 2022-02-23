@@ -4,36 +4,36 @@ import { defineComponent, PropType, computed } from 'vue';
 import { AddIcon, DeleteIcon, BrowseIcon } from 'tdesign-icons-vue-next';
 import TLoading from '../loading';
 
+// utils
 import CLASSNAMES from '../utils/classnames';
 import { UploadFile } from './type';
 import props from './props';
 import { UploadRemoveOptions } from './interface';
-import { UPLOAD_NAME } from './util';
-import { prefix } from '../config';
 
 // hooks
 import { useFormDisabled } from '../form/hooks';
+import { useReceiver } from '../config-provider/useReceiver';
+import { UploadConfig } from '../config-provider/config-receiver';
 
+// props
 const ImageProps = {
-  showUploadProgress: props.showUploadProgress,
   files: props.files,
-  multiple: props.multiple,
-  max: props.max,
-  trigger: {
-    type: Function as PropType<(e: MouseEvent) => void>,
-  },
-  disabled: Boolean,
-  onRemove: {
-    type: Function as PropType<(options: UploadRemoveOptions) => void>,
-  },
-  onImgPreview: {
-    type: Function as PropType<(options: MouseEvent, file: UploadFile) => void>,
-  },
   loadingFile: {
     type: Object as PropType<UploadFile>,
+    default: () => {
+      return null as UploadFile;
+    },
   },
+  showUploadProgress: props.showUploadProgress,
+  multiple: props.multiple,
+  max: props.max,
+  disabled: props.disabled,
+  onClick: Function as PropType<(e: MouseEvent) => void>,
+  onRemove: Function as PropType<(options: UploadRemoveOptions) => void>,
+  onImgPreview: Function as PropType<(options: MouseEvent, file: UploadFile) => void>,
 };
 
+// props
 export default defineComponent({
   name: 'TImageUpload',
 
@@ -41,6 +41,11 @@ export default defineComponent({
 
   setup(props) {
     const disabled = useFormDisabled();
+    const { classPrefix: prefix, global } = useReceiver<UploadConfig>('upload');
+    const UPLOAD_NAME = computed(() => {
+      return `${prefix}-upload`;
+    });
+
     const showTrigger = computed(() => {
       const { multiple, max, files } = props;
       if (multiple) {
@@ -50,71 +55,69 @@ export default defineComponent({
     });
 
     const onMaskClick = (e: MouseEvent) => {
-      !showTrigger.value && props.trigger(e);
+      !showTrigger.value && props.onClick(e);
     };
 
-    const onViewClick = (e: MouseEvent, file?: UploadFile) => {
-      e.stopPropagation();
-      props.onImgPreview(e, file);
-    };
+    const renderCardItem = (file: UploadFile, index: number) => (
+      <li class={`${UPLOAD_NAME.value}__card-item ${prefix}-is--background`}>
+        <div class={`${UPLOAD_NAME.value}__card-content ${UPLOAD_NAME.value}__card-box`}>
+          <img class={`${UPLOAD_NAME.value}__card-image`} src={file.url} />
+          <div class={`${UPLOAD_NAME.value}__card-mask`} onClick={onMaskClick}>
+            <span class={`${UPLOAD_NAME.value}__card-mask-item`}>
+              <BrowseIcon onClick={({ e }: { e: MouseEvent }) => props.onImgPreview(e, file)} />
+            </span>
+            {!props.disabled && [
+              <span class={`${UPLOAD_NAME.value}__card-mask-item-divider`} key="divider"></span>,
+              <span class={`${UPLOAD_NAME.value}__card-mask-item`} key="delete-icon">
+                <DeleteIcon onClick={({ e }: { e: MouseEvent }) => props.onRemove({ e, file, index })} />
+              </span>,
+            ]}
+          </div>
+        </div>
+      </li>
+    );
 
-    const onRemoveClick = (e: MouseEvent, index: number, file?: UploadFile) => {
-      e.stopPropagation();
-      props.onRemove({ e, file, index });
-    };
+    const renderTrigger = () => (
+      <li
+        class={[
+          `${UPLOAD_NAME.value}__card-item ${prefix}-is--background`,
+          { [CLASSNAMES.STATUS.disabled]: props.disabled },
+        ]}
+        onClick={props.onClick}
+      >
+        {props.showUploadProgress && props.loadingFile && props.loadingFile.status === 'progress' ? (
+          <div class={`${UPLOAD_NAME.value}__card-container ${UPLOAD_NAME.value}__card-box`}>
+            <TLoading />
+            <p>
+              {global.value.progress.uploadingText} {Math.min(props.loadingFile.percent, 99)}%
+            </p>
+          </div>
+        ) : (
+          <div class={`${UPLOAD_NAME.value}__card-container ${UPLOAD_NAME.value}__card-box`}>
+            <AddIcon />
+            <p class={`${prefix}-size-s`}>{global.value.triggerUploadText.image}</p>
+          </div>
+        )}
+      </li>
+    );
 
     return {
+      prefix,
+      UPLOAD_NAME,
       onMaskClick,
       showTrigger,
       disabled,
-      onViewClick,
-      onRemoveClick,
+      renderCardItem,
+      renderTrigger,
     };
   },
 
   render() {
+    const { UPLOAD_NAME, renderTrigger, renderCardItem } = this;
     return (
       <ul class={`${UPLOAD_NAME}__card`}>
-        {this.files &&
-          this.files.map((file, index) => (
-            <li class={`${UPLOAD_NAME}__card-item ${prefix}-is--background`}>
-              <div class={`${UPLOAD_NAME}__card-content ${UPLOAD_NAME}__card-box`}>
-                <img class={`${UPLOAD_NAME}__card-image`} src={file.url} />
-                <div class={`${UPLOAD_NAME}__card-mask`} onClick={this.onMaskClick}>
-                  <span class={`${UPLOAD_NAME}__card-mask-item`}>
-                    <BrowseIcon onClick={({ e }: { e: MouseEvent }) => this.onViewClick(e, file)} />
-                  </span>
-                  {!this.disabled && [
-                    <span class={`${UPLOAD_NAME}__card-mask-item-divider`} key="divider"></span>,
-                    <span class={`${UPLOAD_NAME}__card-mask-item`} key="delete-icon">
-                      <DeleteIcon onClick={({ e }: { e: MouseEvent }) => this.onRemoveClick(e, index, file)} />
-                    </span>,
-                  ]}
-                </div>
-              </div>
-            </li>
-          ))}
-        {this.showTrigger && (
-          <li
-            class={[
-              `${UPLOAD_NAME}__card-item ${prefix}-is--background`,
-              { [CLASSNAMES.STATUS.disabled]: this.disabled },
-            ]}
-            onClick={this.trigger}
-          >
-            {this.showUploadProgress && this.loadingFile && (this.loadingFile as UploadFile).status === 'progress' ? (
-              <div class={`${UPLOAD_NAME}__card-container ${UPLOAD_NAME}__card-box`}>
-                <TLoading />
-                <p>上传中 {Math.min((this.loadingFile as UploadFile).percent, 99)}%</p>
-              </div>
-            ) : (
-              <div class={`${UPLOAD_NAME}__card-container ${UPLOAD_NAME}__card-box`}>
-                <AddIcon />
-                <p class={`${prefix}-size-s`}>点击上传图片</p>
-              </div>
-            )}
-          </li>
-        )}
+        {this.files && this.files.map((file, index) => renderCardItem(file, index))}
+        {this.showTrigger && renderTrigger()}
       </ul>
     );
   },
