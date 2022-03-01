@@ -16,7 +16,7 @@ function initPageList() {
     });
   });
 
-  console.log(pageList)
+  console.log(pageList);
 
   return pageList;
 }
@@ -24,6 +24,7 @@ function initPageList() {
 async function initPreviewServer() {
   const previewServer = await preview({
     preview: { port: 9999, open: false },
+    build: { outDir: './_site' },
   });
 
   previewServer.printUrls();
@@ -40,7 +41,7 @@ async function initPreviewServer() {
     fs.mkdirSync(spiderPath);
   } catch {}
 
-  for (let url of pageList) {
+  for (const url of pageList) {
     const [, pathName] = url.split(prefix);
     const filePath = `${spiderPath}${pathName || '/index'}.html`;
 
