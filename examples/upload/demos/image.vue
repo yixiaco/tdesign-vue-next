@@ -80,3 +80,12 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.tdesign-demo-upload-item {
+  display: inline-block;
+  margin-right: 80px;
+}
+.tdesign-demo-upload-item + .tdesign-demo-upload-item {
+  margin-top: 80px;
+}
+</style>

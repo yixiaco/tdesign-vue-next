@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import findIndex from 'lodash/findIndex';
 import isFunction from 'lodash/isFunction';
 import { TdUploadProps, UploadFile, RequestMethodResponse, SizeLimitObj } from './type';
-import { SuccessContext, InnerProgressContext } from './interface';
+import { SuccessContext, InnerProgressContext, UploadCtxType } from './interface';
 
 import { useReceiver, UploadConfig } from '../config-provider';
 
@@ -10,7 +10,7 @@ import { isOverSizeLimit } from './util';
 import xhr from '../_common/js/upload/xhr';
 import log from '../_common/js/log/index';
 
-export const useUploadProgress = (props: TdUploadProps, ctx: any) => {
+export const useUploadProgress = (props: TdUploadProps, ctx: UploadCtxType) => {
   const handleProgress = ({ event, file, percent, type = 'real' }: InnerProgressContext) => {
     if (!file) throw new Error('Error file');
     file.percent = Math.min(percent, 100);
@@ -52,6 +52,7 @@ export const useUploadProgress = (props: TdUploadProps, ctx: any) => {
         response: res,
         resFormatted: true,
       });
+      ctx.value.loadingFile = null;
       return;
     }
     file.url = res?.url || file.url;
@@ -60,7 +61,7 @@ export const useUploadProgress = (props: TdUploadProps, ctx: any) => {
     ctx.value.toUploadFiles.splice(index, 1);
     // 上传成功的文件发送到 files
     const newFile: UploadFile = { ...file, response: res };
-    const files = props.multiple ? ctx.value.files.concat(newFile) : [newFile];
+    const files = props.multiple ? props.files.concat(newFile) : [newFile];
     const context = { e: event, response: res, trigger: 'upload-success' };
     props.onChange?.(files, context);
     const sContext = {

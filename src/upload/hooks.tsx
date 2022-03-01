@@ -12,7 +12,7 @@ import {
 
 import { useUpload } from './useUpload';
 
-export const useComponentsStatus = (props: TdUploadProps, uploadCtx: Ref<UploadCtxType>) => {
+export const useComponentsStatus = (props: TdUploadProps, uploadCtx: UploadCtxType) => {
   const showUploadList = computed(() => {
     return props.multiple && ['file-flow', 'image-flow'].includes(props.theme);
   });
@@ -20,7 +20,9 @@ export const useComponentsStatus = (props: TdUploadProps, uploadCtx: Ref<UploadC
   // 默认文件上传风格：文件进行上传和上传成功后不显示 tips
   const showTips = computed(() => {
     if (props.theme === 'file') {
-      const hasNoFile = (!props.files || !props.files.length) && !uploadCtx.value.loadingFile;
+      const hasNoFile =
+        (!uploadCtx.value.uploadValue.value || !uploadCtx.value.uploadValue.value.length) &&
+        !uploadCtx.value.loadingFile;
       return props.tips && hasNoFile;
     }
     return Boolean(props.tips);
@@ -30,10 +32,16 @@ export const useComponentsStatus = (props: TdUploadProps, uploadCtx: Ref<UploadC
     return !showUploadList.value && !!uploadCtx.value.errorMsg;
   });
 
+  // 拖拽类单文件或图片上传
+  const singleDraggable = computed(
+    () => !props.multiple && props.draggable && ['file', 'file-input', 'image'].includes(props.theme),
+  );
+
   return {
     showUploadList,
     showTips,
     showErrorMsg,
+    singleDraggable,
   };
 };
 
@@ -92,12 +100,12 @@ export const useDragger = (props: TdUploadProps, disabled: ComputedRef<boolean>)
 };
 
 // 删除相关
-export const useRemove = (props: TdUploadProps, uploadCtx: Ref<UploadCtxType>) => {
+export const useRemove = (props: TdUploadProps, uploadCtx: UploadCtxType) => {
   const handleSingleRemove = (e: MouseEvent) => {
     const changeCtx = { trigger: 'remove' };
     if (uploadCtx.value.loadingFile) uploadCtx.value.loadingFile = null;
     uploadCtx.value.errorMsg = '';
-    props.onChange?.([], changeCtx);
+    uploadCtx.value.setUploadValue([], changeCtx);
     props.onRemove?.({ e });
   };
 
@@ -109,9 +117,9 @@ export const useRemove = (props: TdUploadProps, uploadCtx: Ref<UploadCtxType>) =
 
   const handleMultipleRemove = (options: UploadRemoveOptions) => {
     const changeCtx = { trigger: 'remove', ...options };
-    const files = props.files.concat();
+    const files = uploadCtx.value.uploadValue.value.concat();
     files.splice(options.index, 1);
-    props.onChange?.(files, changeCtx);
+    uploadCtx.value.setUploadValue(files, changeCtx);
     props.onRemove?.(options);
   };
 
@@ -121,7 +129,7 @@ export const useRemove = (props: TdUploadProps, uploadCtx: Ref<UploadCtxType>) =
     if (index >= 0) {
       uploadCtx.value.toUploadFiles.splice(index, 1);
     } else {
-      const index = findIndex(props.files, (o: any) => o.name === file.name);
+      const index = findIndex(uploadCtx.value.uploadValue.value, (o: any) => o.name === file.name);
       handleMultipleRemove({ e: context.e, index });
     }
   };
@@ -135,7 +143,7 @@ export const useRemove = (props: TdUploadProps, uploadCtx: Ref<UploadCtxType>) =
 };
 
 // 组件动作
-export const useActions = (props: TdUploadProps, uploadCtx: Ref<UploadCtxType>, disabled: ComputedRef<boolean>) => {
+export const useActions = (props: TdUploadProps, uploadCtx: UploadCtxType, disabled: ComputedRef<boolean>) => {
   const { uploadFiles, upload, xhrReq } = useUpload(props, uploadCtx);
   const inputRef = ref(null);
   const handleChange = (event: HTMLInputEvent) => {
@@ -164,6 +172,7 @@ export const useActions = (props: TdUploadProps, uploadCtx: Ref<UploadCtxType>, 
         props.onCancelUpload?.();
       } else {
         xhrReq.value && xhrReq.value.abort();
+        uploadCtx.value.toUploadFiles = [];
       }
       uploadCtx.value.loadingFile = null;
     }

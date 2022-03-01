@@ -1,3 +1,4 @@
+import { Ref } from 'vue';
 import { TdUploadProps, UploadFile } from './type';
 
 import {
@@ -9,9 +10,6 @@ import {
   SuccessContext,
 } from '../_common/js/upload/types';
 
-export type UploadProps = TdUploadProps;
-export * from './type';
-
 export type {
   XhrOptions,
   HTMLInputEvent,
@@ -21,8 +19,13 @@ export type {
   FlowRemoveContext,
 };
 
-export interface UploadCtxType {
+export type UploadCtxType = Ref<{
+  uploadValue: Ref<TdUploadProps['files']>;
+  setUploadValue: TdUploadProps['onChange'];
   loadingFile: UploadFile;
   toUploadFiles: UploadFile[];
   errorMsg: string;
-}
+}>;
+
+export type UploadProps = TdUploadProps;
+export * from './type';

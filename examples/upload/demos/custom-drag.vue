@@ -59,6 +59,7 @@ export default defineComponent({
     };
 
     const upload = () => {
+      console.log(uploadRef.value);
       uploadRef.value.triggerUpload();
     };
 

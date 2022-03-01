@@ -32,7 +32,6 @@ export default defineComponent({
     };
 
     const requestFailMethod = (file) => {
-      console.log(file);
       return new Promise((resolve) => {
         // resolve 参数为关键代码
         resolve({ status: 'fail', error: '上传失败，请检查文件是否符合规范' });
@@ -41,6 +40,13 @@ export default defineComponent({
 
     const requestMethod = computed(() =>
       uploadMethod.value === 'requestSuccessMethod' ? requestSuccessMethod : requestFailMethod,
+    );
+
+    watch(
+      () => uploadMethod.value,
+      () => {
+        files.value = [];
+      },
     );
 
     return {

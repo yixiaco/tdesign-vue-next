@@ -250,7 +250,7 @@ export default defineComponent({
     const renderFooter = () =>
       !props.autoUpload && (
         <div class={`${UPLOAD_NAME.value}__flow-bottom`}>
-          <TButton theme="default" onClick={props.onCancel}>
+          <TButton theme="default" onClick={props.onCancel} disabled={!allowUpload.value}>
             {global.value.cancelUploadText}
           </TButton>
           <TButton

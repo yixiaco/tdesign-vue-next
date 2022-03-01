@@ -6,6 +6,7 @@
 
   <!-- 上传接口默认只传一个参数，如果希望自定义参数，可以使用 format 方法格式化参数-->
   <t-upload
+    ref="upload"
     v-model="files"
     :size-limit="{ size: 5, unit: 'MB' }"
     action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
@@ -38,6 +39,14 @@ export default defineComponent({
       handleFail,
       formatResponse,
     };
+  },
+  mounted() {
+    this.a();
+  },
+  methods: {
+    a() {
+      console.log(this.$refs.upload);
+    },
   },
 });
 </script>

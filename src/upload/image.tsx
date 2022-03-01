@@ -63,12 +63,22 @@ export default defineComponent({
           <img class={`${UPLOAD_NAME.value}__card-image`} src={file.url} />
           <div class={`${UPLOAD_NAME.value}__card-mask`} onClick={onMaskClick}>
             <span class={`${UPLOAD_NAME.value}__card-mask-item`}>
-              <BrowseIcon onClick={({ e }: { e: MouseEvent }) => props.onImgPreview(e, file)} />
+              <BrowseIcon
+                onClick={({ e }: { e: MouseEvent }) => {
+                  e.stopPropagation();
+                  props.onImgPreview(e, file);
+                }}
+              />
             </span>
             {!props.disabled && [
               <span class={`${UPLOAD_NAME.value}__card-mask-item-divider`} key="divider"></span>,
               <span class={`${UPLOAD_NAME.value}__card-mask-item`} key="delete-icon">
-                <DeleteIcon onClick={({ e }: { e: MouseEvent }) => props.onRemove({ e, file, index })} />
+                <DeleteIcon
+                  onClick={({ e }: { e: MouseEvent }) => {
+                    e.stopPropagation();
+                    props.onRemove({ e, file, index });
+                  }}
+                />
               </span>,
             ]}
           </div>
