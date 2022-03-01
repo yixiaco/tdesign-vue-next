@@ -1,4 +1,5 @@
-import { TdUploadProps } from './type';
+import { TdUploadProps, UploadFile } from './type';
+
 import {
   XhrOptions,
   InnerProgressContext,
@@ -19,3 +20,9 @@ export type {
   UploadRemoveOptions,
   FlowRemoveContext,
 };
+
+export interface UploadCtxType {
+  loadingFile: UploadFile;
+  toUploadFiles: UploadFile[];
+  errorMsg: string;
+}

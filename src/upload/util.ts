@@ -1,7 +1,4 @@
-import { prefix } from '../config';
 import { SizeUnit } from './type';
-
-export const UPLOAD_NAME = `${prefix}-upload`;
 
 export function returnFileSize(number: number) {
   if (number < 1024) {
