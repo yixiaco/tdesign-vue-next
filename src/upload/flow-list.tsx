@@ -15,13 +15,12 @@ import TLoading from '../loading';
 import { UploadFile } from './type';
 import { FlowRemoveContext } from './interface';
 import props from './props';
-import { returnFileSize, abridgeName, UPLOAD_NAME } from './util';
+import { returnFileSize, abridgeName } from './util';
 import { renderTNodeJSX } from '../utils/render-tnode';
 
 // hooks
 import { useFormDisabled } from '../form/hooks';
-import { useReceiver } from '../config-provider/useReceiver';
-import { UploadConfig } from '../config-provider/config-receiver';
+import { useReceiver, UploadConfig } from '../config-provider';
 
 const flowListProps = {
   showUploadProgress: props.showUploadProgress,
@@ -156,7 +155,6 @@ export default defineComponent({
 
     const renderStatus = (file: UploadFile) => {
       if (!props.showUploadProgress) return;
-
       const { iconMap, textMap } = getStatusMap(file);
       return (
         <div class={`${UPLOAD_NAME.value}__flow-status`}>
@@ -166,8 +164,8 @@ export default defineComponent({
       );
     };
 
-    const renderFileList = () => {
-      return (
+    const renderFileList = () =>
+      props.theme === 'file-flow' && (
         <table class={`${UPLOAD_NAME.value}__flow-table`}>
           <tr>
             <th>{global.value.file.fileNameText}</th>
@@ -197,7 +195,6 @@ export default defineComponent({
           ))}
         </table>
       );
-    };
 
     const renderImgItem = (file: UploadFile, index: number) => {
       const { iconMap, textMap } = getStatusMap(file);
@@ -238,8 +235,8 @@ export default defineComponent({
       );
     };
 
-    const renderImgList = () => {
-      return (
+    const renderImgList = () =>
+      props.theme === 'image-flow' && (
         <div class={`${UPLOAD_NAME.value}__flow-card-area`}>
           {showInitial.value && renderDragger()}
           {!!listFiles.value.length && (
@@ -249,24 +246,25 @@ export default defineComponent({
           )}
         </div>
       );
-    };
 
-    const renderFooter = () => (
-      <div class={`${UPLOAD_NAME.value}__flow-bottom`}>
-        <TButton theme="default" onClick={props.onCancel}>
-          {global.value.cancelUploadText}
-        </TButton>
-        <TButton
-          disabled={!allowUpload.value}
-          theme="primary"
-          onClick={(e: MouseEvent) => props.onUpload(waitingUploadFiles.value, e)}
-        >
-          {uploadText.value}
-        </TButton>
-      </div>
-    );
+    const renderFooter = () =>
+      !props.autoUpload && (
+        <div class={`${UPLOAD_NAME.value}__flow-bottom`}>
+          <TButton theme="default" onClick={props.onCancel}>
+            {global.value.cancelUploadText}
+          </TButton>
+          <TButton
+            disabled={!allowUpload.value}
+            theme="primary"
+            onClick={(e: MouseEvent) => props.onUpload(waitingUploadFiles.value, e)}
+          >
+            {uploadText.value}
+          </TButton>
+        </div>
+      );
 
     return {
+      UPLOAD_NAME,
       prefix,
       allowUpload,
       uploadText,
@@ -279,14 +277,14 @@ export default defineComponent({
 
   render() {
     return (
-      <div class={[`${UPLOAD_NAME}__flow`, `${UPLOAD_NAME}__flow-${this.theme}`]}>
-        <div class={`${UPLOAD_NAME}__flow-op`}>
+      <div class={[`${this.UPLOAD_NAME}__flow`, `${this.UPLOAD_NAME}__flow-${this.theme}`]}>
+        <div class={`${this.UPLOAD_NAME}__flow-op`}>
           {renderTNodeJSX(this, 'default')}
-          <small class={`${this.prefix}-size-s ${UPLOAD_NAME}__flow-placeholder`}>{this.placeholder}</small>
+          <small class={`${this.prefix}-size-s ${this.UPLOAD_NAME}__flow-placeholder`}>{this.placeholder}</small>
         </div>
-        {this.theme === 'file-flow' && this.renderFileList()}
-        {this.theme === 'image-flow' && this.renderImgList()}
-        {!this.autoUpload && this.renderFooter()}
+        {this.renderFileList()}
+        {this.renderImgList()}
+        {this.renderFooter()}
       </div>
     );
   },

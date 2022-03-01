@@ -7,12 +7,11 @@ import TButton from '../button';
 import { UploadFile } from './type';
 import props from './props';
 import TLoading from '../loading';
-import { returnFileSize, getCurrentDate, abridgeName, UPLOAD_NAME } from './util';
+import { returnFileSize, getCurrentDate, abridgeName } from './util';
 import { renderTNodeJSX } from '../utils/render-tnode';
 
 // hooks
-import { useReceiver } from '../config-provider/useReceiver';
-import { UploadConfig } from '../config-provider/config-receiver';
+import { useReceiver, UploadConfig } from '../config-provider';
 
 const TUploadDraggerProps = {
   file: {
@@ -46,7 +45,6 @@ export default defineComponent({
   setup(props) {
     const target = ref(null);
     const dragActive = ref(false);
-
     const { classPrefix: prefix, global } = useReceiver<UploadConfig>('upload');
 
     const UPLOAD_NAME = computed(() => {
@@ -155,7 +153,7 @@ export default defineComponent({
       const unActiveElement = (
         <div>
           <span class={`${prefix}-upload--highlight`}>{global.value.triggerUploadText.normal}</span>
-          <span>&nbsp;&nbsp;/&nbsp;&nbsp;{global.value.dragger.clickAndDragText}</span>
+          <span>&nbsp;&nbsp;/&nbsp;&nbsp;{global.value.dragger.draggingText}</span>
         </div>
       );
       const activeElement = <div>{global.value.dragger.dragDropText}</div>;
@@ -164,22 +162,22 @@ export default defineComponent({
 
     const handleDrop = (event: DragEvent) => {
       event.preventDefault();
-      props.onChange(event.dataTransfer.files);
-      props.onDragleave(event);
+      props.onChange?.(event.dataTransfer.files);
+      props.onDragleave?.(event);
       dragActive.value = false;
     };
 
     const handleDragenter = (event: DragEvent) => {
       target.value = event.target;
       event.preventDefault();
-      props.onDragenter(event);
+      props.onDragenter?.(event);
       dragActive.value = true;
     };
 
     const handleDragleave = (event: DragEvent) => {
       if (target.value !== event.target) return;
       event.preventDefault();
-      props.onDragleave(event);
+      props.onDragleave?.(event);
       dragActive.value = false;
     };
 
@@ -188,6 +186,7 @@ export default defineComponent({
     };
 
     return {
+      UPLOAD_NAME,
       classes,
       renderProgress,
       renderDefaultDragElement,
@@ -204,7 +203,7 @@ export default defineComponent({
       content = this.renderProgress();
     } else {
       content = (
-        <div class={`${UPLOAD_NAME}__trigger`} onClick={this.onClick}>
+        <div class={`${this.UPLOAD_NAME}__trigger`} onClick={this.onClick}>
           {renderTNodeJSX(this, 'default') || this.renderDefaultDragElement()}
         </div>
       );

@@ -12,6 +12,7 @@ export function useReceiver<T>(componentName: string): {
   t: <T>(pattern: T, placement?: Record<string, string | number>) => any;
   global: Ref<T>;
   classPrefix: string;
+  COMPONENT_NAME: Ref<string>;
 } {
   const global = computed(() => {
     const globalConfig = inject('globalConfig', {});
@@ -45,9 +46,15 @@ export function useReceiver<T>(componentName: string): {
   };
 
   const classPrefix = 't';
+
+  const COMPONENT_NAME = computed(() => {
+    return `${classPrefix}-${componentName}`;
+  });
+
   return {
     t,
     global,
     classPrefix,
+    COMPONENT_NAME,
   };
 }

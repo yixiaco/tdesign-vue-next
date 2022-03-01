@@ -1,6 +1,6 @@
 import { computed, defineComponent, nextTick, onUpdated, ref, watch } from 'vue';
 import { CloseIcon } from 'tdesign-icons-vue-next';
-import { useReceiver } from '../config-provider/useReceiver';
+import { useReceiver, DrawerConfig } from '../config-provider';
 import { useEmitEvent } from '../hooks/event';
 import { addClass, removeClass } from '../utils/dom';
 import { ClassName, Styles } from '../common';
@@ -10,7 +10,6 @@ import props from './props';
 import { FooterButton, DrawerCloseContext } from './type';
 import { renderTNodeJSX, renderContent } from '../utils/render-tnode';
 import TransferDom from '../utils/transfer-dom';
-import { DrawerConfig } from '../config-provider/config-receiver';
 import { useAction } from '../dialog/hooks';
 
 type FooterButtonType = 'confirm' | 'cancel';

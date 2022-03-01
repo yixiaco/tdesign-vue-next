@@ -12,8 +12,7 @@ import { UploadRemoveOptions } from './interface';
 
 // hooks
 import { useFormDisabled } from '../form/hooks';
-import { useReceiver } from '../config-provider/useReceiver';
-import { UploadConfig } from '../config-provider/config-receiver';
+import { useReceiver, UploadConfig } from '../config-provider';
 
 // props
 const ImageProps = {
