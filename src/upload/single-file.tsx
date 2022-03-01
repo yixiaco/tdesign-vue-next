@@ -83,7 +83,7 @@ export default defineComponent({
 
     // 文本型预览
     const renderFilePreviewAsText = () => {
-      if (!inputName.value) return;
+      if (!inputName.value || props.theme !== 'file') return;
       return (
         <div class={`${UPLOAD_NAME.value}__single-display-text ${UPLOAD_NAME.value}__display-text--margin`}>
           <span class={`${UPLOAD_NAME.value}__single-name`}>{inputName.value}</span>
@@ -101,6 +101,7 @@ export default defineComponent({
 
     // 输入框型预览
     const renderFilePreviewAsInput = () => {
+      if (props.theme !== 'file-input') return;
       const renderResult = () => {
         if (!!props.loadingFile && props.loadingFile.status === 'fail') {
           return <ErrorCircleFilledIcon />;
@@ -132,9 +133,9 @@ export default defineComponent({
   render() {
     return (
       <div class={this.classes}>
-        {this.theme === 'file-input' && this.renderFilePreviewAsInput()}
+        {this.renderFilePreviewAsInput()}
         {renderTNodeJSX(this, 'default')}
-        {this.theme === 'file' && this.renderFilePreviewAsText()}
+        {this.renderFilePreviewAsText()}
       </div>
     );
   },
