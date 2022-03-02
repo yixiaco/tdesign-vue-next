@@ -20,7 +20,7 @@ import { renderTNodeJSX } from '../utils/render-tnode';
 
 // hooks
 import { useFormDisabled } from '../form/hooks';
-import { useReceiver, UploadConfig } from '../config-provider';
+import { useConfig } from '../config-provider';
 
 const flowListProps = {
   showUploadProgress: props.showUploadProgress,
@@ -51,10 +51,10 @@ export default defineComponent({
     const dragActive = ref(false);
 
     const disabled = useFormDisabled();
-    const { classPrefix: prefix, global } = useReceiver<UploadConfig>('upload');
+    const { classPrefix: prefix, global } = useConfig('upload');
 
     const UPLOAD_NAME = computed(() => {
-      return `${prefix}-upload`;
+      return `${prefix.value}-upload`;
     });
 
     const waitingUploadFiles = computed(() => {
@@ -200,7 +200,12 @@ export default defineComponent({
       const { iconMap, textMap } = getStatusMap(file);
       return (
         <li class={`${UPLOAD_NAME.value}__card-item`}>
-          <div class={[`${UPLOAD_NAME.value}__card-content`, { [`${prefix}-is-bordered`]: file.status !== 'waiting' }]}>
+          <div
+            class={[
+              `${UPLOAD_NAME.value}__card-content`,
+              { [`${prefix.value}-is-bordered`]: file.status !== 'waiting' },
+            ]}
+          >
             {['fail', 'progress'].includes(file.status) && (
               <div class={`${UPLOAD_NAME.value}__card-status-wrap`}>
                 {iconMap[file.status as 'fail' | 'progress']}

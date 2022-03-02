@@ -12,7 +12,7 @@ import { UploadRemoveOptions } from './interface';
 
 // hooks
 import { useFormDisabled } from '../form/hooks';
-import { useReceiver, UploadConfig } from '../config-provider';
+import { useConfig } from '../config-provider';
 
 // props
 const ImageProps = {
@@ -40,9 +40,9 @@ export default defineComponent({
 
   setup(props) {
     const disabled = useFormDisabled();
-    const { classPrefix: prefix, global } = useReceiver<UploadConfig>('upload');
+    const { classPrefix: prefix, global } = useConfig('upload');
     const UPLOAD_NAME = computed(() => {
-      return `${prefix}-upload`;
+      return `${prefix.value}-upload`;
     });
 
     const showTrigger = computed(() => {
@@ -58,7 +58,7 @@ export default defineComponent({
     };
 
     const renderCardItem = (file: UploadFile, index: number) => (
-      <li class={`${UPLOAD_NAME.value}__card-item ${prefix}-is--background`}>
+      <li class={`${UPLOAD_NAME.value}__card-item ${prefix.value}-is--background`}>
         <div class={`${UPLOAD_NAME.value}__card-content ${UPLOAD_NAME.value}__card-box`}>
           <img class={`${UPLOAD_NAME.value}__card-image`} src={file.url} />
           <div class={`${UPLOAD_NAME.value}__card-mask`} onClick={onMaskClick}>
@@ -89,7 +89,7 @@ export default defineComponent({
     const renderTrigger = () => (
       <li
         class={[
-          `${UPLOAD_NAME.value}__card-item ${prefix}-is--background`,
+          `${UPLOAD_NAME.value}__card-item ${prefix.value}-is--background`,
           { [CLASSNAMES.STATUS.disabled]: props.disabled },
         ]}
         onClick={props.onClick}
@@ -104,7 +104,7 @@ export default defineComponent({
         ) : (
           <div class={`${UPLOAD_NAME.value}__card-container ${UPLOAD_NAME.value}__card-box`}>
             <AddIcon />
-            <p class={`${prefix}-size-s`}>{global.value.triggerUploadText.image}</p>
+            <p class={`${prefix.value}-size-s`}>{global.value.triggerUploadText.image}</p>
           </div>
         )}
       </li>

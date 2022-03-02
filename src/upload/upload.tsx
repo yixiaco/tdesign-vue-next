@@ -16,7 +16,7 @@ import { UploadCtxType } from './interface';
 // hooks
 import { useFormDisabled } from '../form/hooks';
 import { useComponentsStatus, useImgPreview, useDragger, useRemove, useActions } from './hooks';
-import { useReceiver, UploadConfig } from '../config-provider';
+import { useConfig } from '../config-provider';
 import { useContent } from '../hooks/tnode';
 import useVModel from '../hooks/useVModel';
 
@@ -36,7 +36,11 @@ export default defineComponent({
       errorMsg: '',
     });
 
-    const { classPrefix: prefix, COMPONENT_NAME } = useReceiver<UploadConfig>('upload');
+    const { classPrefix: prefix } = useConfig('upload');
+
+    const COMPONENT_NAME = computed(() => {
+      return `${prefix.value}-upload`;
+    });
 
     const { files, modelValue } = toRefs(props);
     // handle controlled property and uncontrolled property
@@ -100,7 +104,7 @@ export default defineComponent({
           showUploadProgress={props.showUploadProgress}
           placeholder={props.placeholder}
         >
-          <div class={`${prefix}-upload__trigger`} onclick={triggerUpload}>
+          <div class={`${prefix.value}-upload__trigger`} onclick={triggerUpload}>
             {triggerElement}
             {!!(props.theme === 'file-input' && uploadCtx.value.uploadValue.value?.length) && (
               <TButton theme="primary" variant="text" onClick={handleFileInputRemove}>
@@ -227,7 +231,7 @@ export default defineComponent({
       );
 
     const tipsClasses = computed(() => {
-      return [`${COMPONENT_NAME.value}__tips ${prefix}-size-s`];
+      return [`${COMPONENT_NAME.value}__tips ${prefix.value}-size-s`];
     });
 
     const errorClasses = computed(() => {

@@ -11,7 +11,7 @@ import { returnFileSize, getCurrentDate, abridgeName } from './util';
 import { renderTNodeJSX } from '../utils/render-tnode';
 
 // hooks
-import { useReceiver, UploadConfig } from '../config-provider';
+import { useConfig } from '../config-provider';
 
 const TUploadDraggerProps = {
   file: {
@@ -45,10 +45,10 @@ export default defineComponent({
   setup(props) {
     const target = ref(null);
     const dragActive = ref(false);
-    const { classPrefix: prefix, global } = useReceiver<UploadConfig>('upload');
+    const { classPrefix: prefix, global } = useConfig('upload');
 
     const UPLOAD_NAME = computed(() => {
-      return `${prefix}-upload`;
+      return `${prefix.value}-upload`;
     });
 
     const imageUrl = computed(() => {
@@ -100,10 +100,10 @@ export default defineComponent({
             {props.loadingFile && renderUploading()}
             {!props.loadingFile && !!props.file && <CheckCircleFilledIcon />}
           </div>
-          <small class={`${prefix}-size-s`}>
+          <small class={`${prefix.value}-size-s`}>
             {global.value.file.fileSizeText}：{returnFileSize(size.value)}
           </small>
-          <small class={`${prefix}-size-s`}>
+          <small class={`${prefix.value}-size-s`}>
             {global.value.file.fileOperationDateText}：{getCurrentDate()}
           </small>
           <div class={`${UPLOAD_NAME.value}__dragger-btns`}>
@@ -152,7 +152,7 @@ export default defineComponent({
     const renderDefaultDragElement = () => {
       const unActiveElement = (
         <div>
-          <span class={`${prefix}-upload--highlight`}>{global.value.triggerUploadText.normal}</span>
+          <span class={`${prefix.value}-upload--highlight`}>{global.value.triggerUploadText.normal}</span>
           <span>&nbsp;&nbsp;/&nbsp;&nbsp;{global.value.dragger.draggingText}</span>
         </div>
       );

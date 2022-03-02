@@ -12,7 +12,6 @@ exports[`Upload Upload baseVue demo works fine 1`] = `
   <!-- 上传接口默认只传一个参数，如果希望自定义参数，可以使用 format 方法格式化参数-->
   <div
     class="t-upload"
-    modelvalue=""
   >
     <input
       accept=""
@@ -72,12 +71,14 @@ exports[`Upload Upload baseVue demo works fine 1`] = `
     <!---->
     <!---->
     <!---->
+    
     <small
       class="t-upload__tips t-size-s"
     >
       上传文件大小在 5M 以内
     </small>
     <!---->
+    
   </div>
   
 </div>
@@ -125,7 +126,6 @@ exports[`Upload Upload customDragVue demo works fine 1`] = `
   <br />
   <div
     class="t-upload"
-    modelvalue=""
   >
     <input
       accept=""
@@ -209,7 +209,7 @@ exports[`Upload Upload customDragVue demo works fine 1`] = `
           >
             
             <div
-              class="t__dialog-body-img-box"
+              class="[object Object]__dialog-body-img-box"
             >
               <img
                 alt=""
@@ -227,8 +227,10 @@ exports[`Upload Upload customDragVue demo works fine 1`] = `
         
       </div>
     </transition-stub>
+    
     <!---->
     <!---->
+    
   </div>
 </div>
 `;
@@ -310,7 +312,6 @@ exports[`Upload Upload draggableVue demo works fine 1`] = `
   <!-- data 表示传递给上传接口的额外数据；如果有更复杂的数据场景传递，请使用 format 方法 -->
   <div
     class="t-upload"
-    modelvalue=""
   >
     <input
       accept=""
@@ -333,7 +334,8 @@ exports[`Upload Upload draggableVue demo works fine 1`] = `
             点击上传
           </span>
           <span>
-              /  拖拽到此区域
+              /  
+            拖拽到此区域
           </span>
         </div>
       </div>
@@ -342,7 +344,9 @@ exports[`Upload Upload draggableVue demo works fine 1`] = `
     <!---->
     <!---->
     
+    
     <!---->
+    
   </div>
 </div>
 `;
@@ -353,7 +357,6 @@ exports[`Upload Upload fileFlowListVue demo works fine 1`] = `
 >
   <div
     class="t-upload"
-    modelvalue=""
   >
     <input
       accept=""
@@ -403,7 +406,7 @@ exports[`Upload Upload fileFlowListVue demo works fine 1`] = `
             文件名
           </th>
           <th>
-            大小
+            文件尺寸
           </th>
           <th>
             状态
@@ -419,7 +422,7 @@ exports[`Upload Upload fileFlowListVue demo works fine 1`] = `
             <div
               class="t-upload__flow-empty"
             >
-              点击上方“选择文件”或将文件拖拽到此区域
+              点击上方“选择文件”或将文件拖到此区域
             </div>
           </td>
         </tr>
@@ -431,14 +434,15 @@ exports[`Upload Upload fileFlowListVue demo works fine 1`] = `
         class="t-upload__flow-bottom"
       >
         <button
-          class="t-button t-size-m t-button--variant-base t-button--theme-default"
+          class="t-button t-size-m t-button--variant-base t-button--theme-default t-is-disabled"
+          disabled=""
           type="button"
         >
           <span
             class="t-button__text"
           >
             
-            取消
+            取消上传
             
           </span>
         </button>
@@ -458,8 +462,10 @@ exports[`Upload Upload fileFlowListVue demo works fine 1`] = `
       </div>
     </div>
     <!---->
+    
     <!---->
     <!---->
+    
   </div>
 </div>
 `;
@@ -473,7 +479,6 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
   >
     <div
       class="t-upload"
-      modelvalue=""
     >
       <input
         accept="image/*"
@@ -485,10 +490,8 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
       <!---->
       <ul
         class="t-upload__card"
-        touploadfiles=""
       >
-        
-        
+        <!---->
         <li
           class="t-upload__card-item t-is--background"
         >
@@ -560,7 +563,7 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
             >
               
               <div
-                class="t__dialog-body-img-box"
+                class="[object Object]__dialog-body-img-box"
               >
                 <img
                   alt=""
@@ -578,12 +581,14 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
           
         </div>
       </transition-stub>
+      
       <small
         class="t-upload__tips t-size-s"
       >
         请选择单张图片文件上传（上传成功状态演示）
       </small>
       <!---->
+      
     </div>
   </div>
   <div
@@ -591,7 +596,6 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
   >
     <div
       class="t-upload"
-      modelvalue=""
     >
       <input
         accept="image/*"
@@ -603,10 +607,8 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
       <!---->
       <ul
         class="t-upload__card"
-        touploadfiles=""
       >
-        
-        
+        <!---->
         <li
           class="t-upload__card-item t-is--background"
         >
@@ -678,7 +680,7 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
             >
               
               <div
-                class="t__dialog-body-img-box"
+                class="[object Object]__dialog-body-img-box"
               >
                 <img
                   alt=""
@@ -696,12 +698,14 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
           
         </div>
       </transition-stub>
+      
       <small
         class="t-upload__tips t-size-s"
       >
         请选择单张图片文件上传（上传失败状态演示）
       </small>
       <!---->
+      
     </div>
   </div>
   <div
@@ -709,7 +713,6 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
   >
     <div
       class="t-upload"
-      modelvalue=""
     >
       <input
         accept="image/*"
@@ -721,10 +724,8 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
       <!---->
       <ul
         class="t-upload__card"
-        touploadfiles=""
       >
-        
-        
+        <!---->
         <li
           class="t-upload__card-item t-is--background"
         >
@@ -796,7 +797,7 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
             >
               
               <div
-                class="t__dialog-body-img-box"
+                class="[object Object]__dialog-body-img-box"
               >
                 <img
                   alt=""
@@ -814,12 +815,14 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
           
         </div>
       </transition-stub>
+      
       <small
         class="t-upload__tips t-size-s"
       >
         请选择单张图片文件上传（自定义预览图片地址）
       </small>
       <!---->
+      
     </div>
   </div>
   <div
@@ -827,7 +830,6 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
   >
     <div
       class="t-upload"
-      modelvalue=""
     >
       <input
         accept="image/*"
@@ -840,36 +842,9 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
       <!---->
       <ul
         class="t-upload__card"
-        touploadfiles=""
       >
-        
-        
-        <li
-          class="t-upload__card-item t-is--background"
-        >
-          <div
-            class="t-upload__card-container t-upload__card-box"
-          >
-            <svg
-              class="t-icon t-icon-add"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-            <p
-              class="t-size-s"
-            >
-              点击上传图片
-            </p>
-          </div>
-        </li>
+        <!---->
+        <!---->
       </ul>
       <!---->
       <transition-stub
@@ -915,7 +890,7 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
             >
               
               <div
-                class="t__dialog-body-img-box"
+                class="[object Object]__dialog-body-img-box"
               >
                 <img
                   alt=""
@@ -933,12 +908,14 @@ exports[`Upload Upload imageVue demo works fine 1`] = `
           
         </div>
       </transition-stub>
+      
       <small
         class="t-upload__tips t-size-s"
       >
         允许选择多张图片文件上传，最多只能上传 3 张图片
       </small>
       <!---->
+      
     </div>
   </div>
 </div>
@@ -950,7 +927,6 @@ exports[`Upload Upload imgFlowListVue demo works fine 1`] = `
 >
   <div
     class="t-upload"
-    modelvalue=""
   >
     <input
       accept="image/*"
@@ -999,7 +975,7 @@ exports[`Upload Upload imgFlowListVue demo works fine 1`] = `
         <div
           class="t-upload__flow-empty"
         >
-          点击上方“选择文件”或将文件拖拽到此区域
+          点击上方“选择文件”或将文件拖到此区域
         </div>
         <!---->
       </div>
@@ -1007,14 +983,15 @@ exports[`Upload Upload imgFlowListVue demo works fine 1`] = `
         class="t-upload__flow-bottom"
       >
         <button
-          class="t-button t-size-m t-button--variant-base t-button--theme-default"
+          class="t-button t-size-m t-button--variant-base t-button--theme-default t-is-disabled"
+          disabled=""
           type="button"
         >
           <span
             class="t-button__text"
           >
             
-            取消
+            取消上传
             
           </span>
         </button>
@@ -1076,7 +1053,7 @@ exports[`Upload Upload imgFlowListVue demo works fine 1`] = `
           >
             
             <div
-              class="t__dialog-body-img-box"
+              class="[object Object]__dialog-body-img-box"
             >
               <img
                 alt=""
@@ -1094,8 +1071,10 @@ exports[`Upload Upload imgFlowListVue demo works fine 1`] = `
         
       </div>
     </transition-stub>
+    
     <!---->
     <!---->
+    
   </div>
 </div>
 `;
@@ -1172,7 +1151,9 @@ exports[`Upload Upload listTypeVue demo works fine 1`] = `
       <!---->
       <!---->
       
+      
       <!---->
+      
     </div>
   </header>
 </section>
@@ -1235,7 +1216,6 @@ exports[`Upload Upload requestMethodVue demo works fine 1`] = `
   <br />
   <div
     class="t-upload"
-    modelvalue=""
   >
     <input
       accept=""
@@ -1295,12 +1275,14 @@ exports[`Upload Upload requestMethodVue demo works fine 1`] = `
     <!---->
     <!---->
     <!---->
+    
     <small
       class="t-upload__tips t-size-s"
     >
       自定义上传方法需要返回成功或失败信息
     </small>
     <!---->
+    
   </div>
 </div>
 `;
@@ -1312,7 +1294,6 @@ exports[`Upload Upload singleCustomVue demo works fine 1`] = `
   <div>
     <div
       class="t-upload"
-      modelvalue=""
     >
       <input
         accept=""
@@ -1385,7 +1366,7 @@ exports[`Upload Upload singleCustomVue demo works fine 1`] = `
             >
               
               <div
-                class="t__dialog-body-img-box"
+                class="[object Object]__dialog-body-img-box"
               >
                 <img
                   alt=""
@@ -1403,12 +1384,14 @@ exports[`Upload Upload singleCustomVue demo works fine 1`] = `
           
         </div>
       </transition-stub>
+      
       <small
         class="t-upload__tips t-size-s"
       >
         上传文件大小在 5M 以内
       </small>
       <!---->
+      
     </div>
     <!--v-if-->
   </div>
@@ -1424,7 +1407,6 @@ exports[`Upload Upload singleInputVue demo works fine 1`] = `
   >
     <div
       class="t-upload"
-      modelvalue=""
     >
       <input
         accept=""
@@ -1455,8 +1437,7 @@ exports[`Upload Upload singleInputVue demo works fine 1`] = `
           class="t-upload__trigger"
         >
           <button
-            class="t-button t-size-m t-button--variant-outline t-button--theme-default t-is-disabled"
-            disabled=""
+            class="t-button t-size-m t-button--variant-outline t-button--theme-default"
             type="button"
           >
             <span
@@ -1476,8 +1457,10 @@ exports[`Upload Upload singleInputVue demo works fine 1`] = `
       <!---->
       <!---->
       <!---->
+      
       <!---->
       <!---->
+      
     </div>
   </div>
 </div>
@@ -1550,7 +1533,9 @@ exports[`Upload Upload tableVue demo works fine 1`] = `
       <!---->
       <!---->
       
+      
       <!---->
+      
     </div>
   </header>
   <div

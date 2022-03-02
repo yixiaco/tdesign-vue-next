@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import { TdUploadProps, UploadFile, RequestMethodResponse, SizeLimitObj } from './type';
 import { SuccessContext, InnerProgressContext, UploadCtxType } from './interface';
 
-import { useReceiver, UploadConfig } from '../config-provider';
+import { useConfig } from '../config-provider';
 
 import { isOverSizeLimit } from './util';
 import xhr from '../_common/js/upload/xhr';
@@ -99,7 +99,7 @@ export const useUploadProgress = (props: TdUploadProps, ctx: UploadCtxType) => {
 
 export const useUpload = (props: TdUploadProps, store: any) => {
   const xhrReq = ref<XMLHttpRequest>(null);
-  const { global, t } = useReceiver<UploadConfig>('upload');
+  const { global, t } = useConfig('upload');
   // 上传状态
   const { handleProgress, handleMockProgress, handleSuccess, onError } = useUploadProgress(props, store);
 

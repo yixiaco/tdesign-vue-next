@@ -17648,16 +17648,14 @@ exports[`ssr snapshot test renders ./examples/form/demos/disabled.vue correctly 
             <!---->
             <!---->
             <ul class="t-upload__card">
-              <!--[-->
-              <li class="t-upload__card-item t-is--background">
-                <div class="t-upload__card-content t-upload__card-box"><img class="t-upload__card-image" src="https://tdesign.gtimg.com/site/avatar.jpg">
-                  <div class="t-upload__card-mask"><span class="t-upload__card-mask-item"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-browse" style=""><path fill="currentColor" d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z" fill-opacity="0.9"></path><path fill="currentColor" d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z" fill-opacity="0.9"></path></svg></span>
-                    <!---->
-                  </div>
+              <!---->
+              <li class="t-upload__card-item t-is--background t-is-disabled">
+                <div class="t-upload__card-container t-upload__card-box"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-add" style="">
+                    <path fill="currentColor" d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z" fill-opacity="0.9"></path>
+                  </svg>
+                  <p class="t-size-s">点击上传图片</p>
                 </div>
               </li>
-              <!--]-->
-              <!---->
             </ul>
             <!---->
             <div class="t-dialog__ctx t-dialog__ctx--fixed t-upload__dialog" style="display:none;">
@@ -17670,7 +17668,7 @@ exports[`ssr snapshot test renders ./examples/form/demos/disabled.vue correctly 
                 </div><span class="t-dialog__close"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close" style=""><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span>
                 <div class="t-dialog__body">
                   <!--[-->
-                  <div class="t__dialog-body-img-box"><img src alt></div>
+                  <div class="[object Object]__dialog-body-img-box"><img src alt></div>
                   <!--]-->
                 </div>
                 <div class="t-dialog__footer">
@@ -17678,8 +17676,10 @@ exports[`ssr snapshot test renders ./examples/form/demos/disabled.vue correctly 
                 </div>
               </div>
               <!--]-->
-            </div><small class="t-upload__tips t-size-s">请选择单张图片文件上传</small>
+            </div>
+            <!--[--><small class="t-upload__tips t-size-s">请选择单张图片文件上传</small>
             <!---->
+            <!--]-->
           </div>
           <!--]-->
           <!---->
@@ -23461,7 +23461,7 @@ exports[`ssr snapshot test renders ./examples/notification/demos/operation.vue c
     <div class="t-notification__main">
       <div class="t-notification__title__wrap"><span class="t-notification__title">消息通知标题</span><span class="t-message__close"><!----></span></div>
       <div class="t-notification__content">使用 function 自定义底部内容</div>
-      <!---->
+      <div slot="footer" class="t-notification__detail"><button class="t-button t-size-m t-button--variant-text t-button--theme-primary t-notification__detail-item" type="button"><span class="t-button__text"><!--[-->查看详情<!--]--></span></button></div>
     </div>
   </div>
   <div class="t-notification">
@@ -48200,8 +48200,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/base.vue correctly 1`
   <!---->
   <!---->
   <!---->
-  <!----><small class="t-upload__tips t-size-s">上传文件大小在 5M 以内</small>
   <!---->
+  <!--[--><small class="t-upload__tips t-size-s">上传文件大小在 5M 以内</small>
+  <!---->
+  <!--]-->
 </div>
 <!--]-->
 `;
@@ -48242,7 +48244,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/custom-drag.vue corre
         </div><span class="t-dialog__close"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close" style=""><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span>
         <div class="t-dialog__body">
           <!--[-->
-          <div class="t__dialog-body-img-box"><img src alt></div>
+          <div class="[object Object]__dialog-body-img-box"><img src alt></div>
           <!--]-->
         </div>
         <div class="t-dialog__footer">
@@ -48251,8 +48253,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/custom-drag.vue corre
       </div>
       <!--]-->
     </div>
+    <!--[-->
     <!---->
     <!---->
+    <!--]-->
   </div>
 </div>
 `;
@@ -48280,7 +48284,9 @@ exports[`ssr snapshot test renders ./examples/upload/demos/draggable.vue correct
     <!---->
     <!---->
     <!---->
+    <!--[-->
     <!---->
+    <!--]-->
   </div>
 </div>
 `;
@@ -48301,24 +48307,26 @@ exports[`ssr snapshot test renders ./examples/upload/demos/file-flow-list.vue co
       <table class="t-upload__flow-table">
         <tr>
           <th>文件名</th>
-          <th>大小</th>
+          <th>文件尺寸</th>
           <th>状态</th>
           <th>操作</th>
         </tr>
         <tr>
           <td colspan="4">
-            <div class="t-upload__flow-empty">点击上方“选择文件”或将文件拖拽到此区域</div>
+            <div class="t-upload__flow-empty">点击上方“选择文件”或将文件拖到此区域</div>
           </td>
         </tr>
         <!--[-->
         <!--]-->
       </table>
       <!---->
-      <div class="t-upload__flow-bottom"><button class="t-button t-size-m t-button--variant-base t-button--theme-default" type="button"><span class="t-button__text"><!--[-->取消<!--]--></span></button><button class="t-button t-size-m t-button--variant-base t-button--theme-primary t-is-disabled" type="button" disabled><span class="t-button__text"><!--[-->开始上传<!--]--></span></button></div>
+      <div class="t-upload__flow-bottom"><button class="t-button t-size-m t-button--variant-base t-button--theme-default t-is-disabled" type="button" disabled><span class="t-button__text"><!--[-->取消上传<!--]--></span></button><button class="t-button t-size-m t-button--variant-base t-button--theme-primary t-is-disabled" type="button" disabled><span class="t-button__text"><!--[-->开始上传<!--]--></span></button></div>
     </div>
     <!---->
+    <!--[-->
     <!---->
     <!---->
+    <!--]-->
   </div>
 </div>
 `;
@@ -48331,8 +48339,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
       <!---->
       <!---->
       <ul class="t-upload__card">
-        <!--[-->
-        <!--]-->
+        <!---->
         <li class="t-upload__card-item t-is--background">
           <div class="t-upload__card-container t-upload__card-box"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-add" style="">
               <path fill="currentColor" d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z" fill-opacity="0.9"></path>
@@ -48352,7 +48359,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
           </div><span class="t-dialog__close"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close" style=""><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span>
           <div class="t-dialog__body">
             <!--[-->
-            <div class="t__dialog-body-img-box"><img src alt></div>
+            <div class="[object Object]__dialog-body-img-box"><img src alt></div>
             <!--]-->
           </div>
           <div class="t-dialog__footer">
@@ -48360,8 +48367,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
           </div>
         </div>
         <!--]-->
-      </div><small class="t-upload__tips t-size-s">请选择单张图片文件上传（上传成功状态演示）</small>
+      </div>
+      <!--[--><small class="t-upload__tips t-size-s">请选择单张图片文件上传（上传成功状态演示）</small>
       <!---->
+      <!--]-->
     </div>
   </div>
   <div class="tdesign-demo-upload-item">
@@ -48370,8 +48379,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
       <!---->
       <!---->
       <ul class="t-upload__card">
-        <!--[-->
-        <!--]-->
+        <!---->
         <li class="t-upload__card-item t-is--background">
           <div class="t-upload__card-container t-upload__card-box"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-add" style="">
               <path fill="currentColor" d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z" fill-opacity="0.9"></path>
@@ -48391,7 +48399,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
           </div><span class="t-dialog__close"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close" style=""><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span>
           <div class="t-dialog__body">
             <!--[-->
-            <div class="t__dialog-body-img-box"><img src alt></div>
+            <div class="[object Object]__dialog-body-img-box"><img src alt></div>
             <!--]-->
           </div>
           <div class="t-dialog__footer">
@@ -48399,8 +48407,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
           </div>
         </div>
         <!--]-->
-      </div><small class="t-upload__tips t-size-s">请选择单张图片文件上传（上传失败状态演示）</small>
+      </div>
+      <!--[--><small class="t-upload__tips t-size-s">请选择单张图片文件上传（上传失败状态演示）</small>
       <!---->
+      <!--]-->
     </div>
   </div>
   <div class="tdesign-demo-upload-item">
@@ -48409,8 +48419,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
       <!---->
       <!---->
       <ul class="t-upload__card">
-        <!--[-->
-        <!--]-->
+        <!---->
         <li class="t-upload__card-item t-is--background">
           <div class="t-upload__card-container t-upload__card-box"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-add" style="">
               <path fill="currentColor" d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z" fill-opacity="0.9"></path>
@@ -48430,7 +48439,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
           </div><span class="t-dialog__close"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close" style=""><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span>
           <div class="t-dialog__body">
             <!--[-->
-            <div class="t__dialog-body-img-box"><img src alt></div>
+            <div class="[object Object]__dialog-body-img-box"><img src alt></div>
             <!--]-->
           </div>
           <div class="t-dialog__footer">
@@ -48438,8 +48447,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
           </div>
         </div>
         <!--]-->
-      </div><small class="t-upload__tips t-size-s">请选择单张图片文件上传（自定义预览图片地址）</small>
+      </div>
+      <!--[--><small class="t-upload__tips t-size-s">请选择单张图片文件上传（自定义预览图片地址）</small>
       <!---->
+      <!--]-->
     </div>
   </div>
   <div class="tdesign-demo-upload-item">
@@ -48448,15 +48459,8 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
       <!---->
       <!---->
       <ul class="t-upload__card">
-        <!--[-->
-        <!--]-->
-        <li class="t-upload__card-item t-is--background">
-          <div class="t-upload__card-container t-upload__card-box"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-add" style="">
-              <path fill="currentColor" d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z" fill-opacity="0.9"></path>
-            </svg>
-            <p class="t-size-s">点击上传图片</p>
-          </div>
-        </li>
+        <!---->
+        <!---->
       </ul>
       <!---->
       <div class="t-dialog__ctx t-dialog__ctx--fixed t-upload__dialog" style="display:none;">
@@ -48469,7 +48473,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
           </div><span class="t-dialog__close"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close" style=""><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span>
           <div class="t-dialog__body">
             <!--[-->
-            <div class="t__dialog-body-img-box"><img src alt></div>
+            <div class="[object Object]__dialog-body-img-box"><img src alt></div>
             <!--]-->
           </div>
           <div class="t-dialog__footer">
@@ -48477,8 +48481,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/image.vue correctly 1
           </div>
         </div>
         <!--]-->
-      </div><small class="t-upload__tips t-size-s">允许选择多张图片文件上传，最多只能上传 3 张图片</small>
+      </div>
+      <!--[--><small class="t-upload__tips t-size-s">允许选择多张图片文件上传，最多只能上传 3 张图片</small>
       <!---->
+      <!--]-->
     </div>
   </div>
 </div>
@@ -48499,10 +48505,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/img-flow-list.vue cor
       </div>
       <!---->
       <div class="t-upload__flow-card-area">
-        <div class="t-upload__flow-empty">点击上方“选择文件”或将文件拖拽到此区域</div>
+        <div class="t-upload__flow-empty">点击上方“选择文件”或将文件拖到此区域</div>
         <!---->
       </div>
-      <div class="t-upload__flow-bottom"><button class="t-button t-size-m t-button--variant-base t-button--theme-default" type="button"><span class="t-button__text"><!--[-->取消<!--]--></span></button><button class="t-button t-size-m t-button--variant-base t-button--theme-primary t-is-disabled" type="button" disabled><span class="t-button__text"><!--[-->开始上传<!--]--></span></button></div>
+      <div class="t-upload__flow-bottom"><button class="t-button t-size-m t-button--variant-base t-button--theme-default t-is-disabled" type="button" disabled><span class="t-button__text"><!--[-->取消上传<!--]--></span></button><button class="t-button t-size-m t-button--variant-base t-button--theme-primary t-is-disabled" type="button" disabled><span class="t-button__text"><!--[-->开始上传<!--]--></span></button></div>
     </div>
     <div class="t-dialog__ctx t-dialog__ctx--fixed t-upload__dialog" style="display:none;">
       <!--[-->
@@ -48514,7 +48520,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/img-flow-list.vue cor
         </div><span class="t-dialog__close"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close" style=""><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span>
         <div class="t-dialog__body">
           <!--[-->
-          <div class="t__dialog-body-img-box"><img src alt></div>
+          <div class="[object Object]__dialog-body-img-box"><img src alt></div>
           <!--]-->
         </div>
         <div class="t-dialog__footer">
@@ -48523,8 +48529,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/img-flow-list.vue cor
       </div>
       <!--]-->
     </div>
+    <!--[-->
     <!---->
     <!---->
+    <!--]-->
   </div>
 </div>
 `;
@@ -48558,7 +48566,9 @@ exports[`ssr snapshot test renders ./examples/upload/demos/listType.vue correctl
       <!---->
       <!---->
       <!---->
+      <!--[-->
       <!---->
+      <!--]-->
     </div>
   </header>
 </section>
@@ -48592,8 +48602,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/request-method.vue co
     <!---->
     <!---->
     <!---->
-    <!----><small class="t-upload__tips t-size-s">自定义上传方法需要返回成功或失败信息</small>
     <!---->
+    <!--[--><small class="t-upload__tips t-size-s">自定义上传方法需要返回成功或失败信息</small>
+    <!---->
+    <!--]-->
   </div>
 </div>
 `;
@@ -48620,7 +48632,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/single-custom.vue cor
           </div><span class="t-dialog__close"><svg fill="none" viewbox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close" style=""><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span>
           <div class="t-dialog__body">
             <!--[-->
-            <div class="t__dialog-body-img-box"><img src alt></div>
+            <div class="[object Object]__dialog-body-img-box"><img src alt></div>
             <!--]-->
           </div>
           <div class="t-dialog__footer">
@@ -48628,8 +48640,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/single-custom.vue cor
           </div>
         </div>
         <!--]-->
-      </div><small class="t-upload__tips t-size-s">上传文件大小在 5M 以内</small>
+      </div>
+      <!--[--><small class="t-upload__tips t-size-s">上传文件大小在 5M 以内</small>
       <!---->
+      <!--]-->
     </div>
     <!--v-if-->
   </div>
@@ -48648,7 +48662,7 @@ exports[`ssr snapshot test renders ./examples/upload/demos/single-input.vue corr
           </div>
         </div>
         <!--[-->
-        <div class="t-upload__trigger"><button class="t-button t-size-m t-button--variant-outline t-button--theme-default t-is-disabled" type="button" disabled><span class="t-button__text"><!--[-->选择文件<!--]--></span></button>
+        <div class="t-upload__trigger"><button class="t-button t-size-m t-button--variant-outline t-button--theme-default" type="button"><span class="t-button__text"><!--[-->选择文件<!--]--></span></button>
           <!---->
         </div>
         <!--]-->
@@ -48658,8 +48672,10 @@ exports[`ssr snapshot test renders ./examples/upload/demos/single-input.vue corr
       <!---->
       <!---->
       <!---->
+      <!--[-->
       <!---->
       <!---->
+      <!--]-->
     </div>
   </div>
 </div>
@@ -48693,7 +48709,9 @@ exports[`ssr snapshot test renders ./examples/upload/demos/table.vue correctly 1
       <!---->
       <!---->
       <!---->
+      <!--[-->
       <!---->
+      <!--]-->
     </div>
   </header>
   <div class="tdesign-demo-upload-table">

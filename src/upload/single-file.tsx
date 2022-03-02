@@ -11,7 +11,7 @@ import { abridgeName } from './util';
 import { renderTNodeJSX } from '../utils/render-tnode';
 
 // hooks
-import { useReceiver } from '../config-provider/useReceiver';
+import { useConfig } from '../config-provider';
 
 // props
 const SingleFileProps = {
@@ -39,9 +39,9 @@ export default defineComponent({
   props: SingleFileProps,
 
   setup(props) {
-    const { classPrefix: prefix } = useReceiver('upload');
+    const { classPrefix: prefix } = useConfig('upload');
     const UPLOAD_NAME = computed(() => {
-      return `${prefix}-upload`;
+      return `${prefix.value}-upload`;
     });
 
     const showProgress = computed(() => {
@@ -59,7 +59,7 @@ export default defineComponent({
     });
 
     const inputTextClass = computed(() => {
-      return [`${prefix}-input__inner`, { [`${UPLOAD_NAME.value}__placeholder`]: !inputName.value }];
+      return [`${prefix.value}-input__inner`, { [`${UPLOAD_NAME.value}__placeholder`]: !inputName.value }];
     });
 
     const classes = computed(() => {
@@ -113,7 +113,7 @@ export default defineComponent({
       };
 
       return (
-        <div class={`${UPLOAD_NAME.value}__single-input-preview ${prefix}-input`}>
+        <div class={`${UPLOAD_NAME.value}__single-input-preview ${prefix.value}-input`}>
           <div class={inputTextClass.value}>
             {<span class={`${UPLOAD_NAME.value}__single-input-text`}>{abridgeName(inputText.value, 4, 6)}</span>}
             {showProgress.value && renderProgress()}
