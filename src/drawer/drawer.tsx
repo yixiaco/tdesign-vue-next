@@ -1,6 +1,6 @@
 import { computed, defineComponent, nextTick, onUpdated, ref, watch } from 'vue';
 import { CloseIcon } from 'tdesign-icons-vue-next';
-import { useReceiver, DrawerConfig } from '../config-provider';
+import { useConfig } from '../config-provider';
 import { useEmitEvent } from '../hooks/event';
 import { addClass, removeClass } from '../utils/dom';
 import { ClassName, Styles } from '../common';
@@ -45,7 +45,7 @@ export default defineComponent({
   ],
 
   setup(props) {
-    const { global } = useReceiver<DrawerConfig>('drawer');
+    const { global } = useConfig('drawer');
     const emitEvent = useEmitEvent();
     const confirmBtnAction = (e: MouseEvent) => {
       emitEvent('confirm', e);
