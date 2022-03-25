@@ -2,7 +2,7 @@
 
 exports[`InputNumber :props :defaultValue, default value 6 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -30,15 +30,23 @@ exports[`InputNumber :props :defaultValue, default value 6 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -69,7 +77,7 @@ exports[`InputNumber :props :defaultValue, default value 6 1`] = `
 
 exports[`InputNumber :props :disabled, function can not be call 1`] = `
 <div
-  class="t-input-number t-size-m t-is-disabled"
+  class="t-input-number t-size-m t-is-disabled t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease t-is-disabled"
@@ -97,16 +105,24 @@ exports[`InputNumber :props :disabled, function can not be call 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-is-disabled t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-is-disabled t-input-number-text-align"
+        class="t-input__inner"
         disabled=""
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase t-is-disabled"
@@ -137,7 +153,7 @@ exports[`InputNumber :props :disabled, function can not be call 1`] = `
 
 exports[`InputNumber :props :format, with 6% 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -165,15 +181,23 @@ exports[`InputNumber :props :format, with 6% 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -204,7 +228,7 @@ exports[`InputNumber :props :format, with 6% 1`] = `
 
 exports[`InputNumber :props :max, value 6 < max 10 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -232,15 +256,23 @@ exports[`InputNumber :props :max, value 6 < max 10 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -271,7 +303,7 @@ exports[`InputNumber :props :max, value 6 < max 10 1`] = `
 
 exports[`InputNumber :props :max, value 16 > max 10 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease t-is-disabled"
@@ -299,15 +331,23 @@ exports[`InputNumber :props :max, value 16 > max 10 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input t-is-error"
+      class="t-input t-is-error t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase t-is-disabled"
@@ -338,7 +378,7 @@ exports[`InputNumber :props :max, value 16 > max 10 1`] = `
 
 exports[`InputNumber :props :min, value -1 < min 1 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease t-is-disabled"
@@ -366,15 +406,23 @@ exports[`InputNumber :props :min, value -1 < min 1 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input t-is-error"
+      class="t-input t-is-error t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase t-is-disabled"
@@ -405,7 +453,7 @@ exports[`InputNumber :props :min, value -1 < min 1 1`] = `
 
 exports[`InputNumber :props :min, value 6 > min 1 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -433,15 +481,23 @@ exports[`InputNumber :props :min, value 6 > min 1 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -472,7 +528,7 @@ exports[`InputNumber :props :min, value 6 > min 1 1`] = `
 
 exports[`InputNumber :props :mode, without class t-is-controls-right 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -500,15 +556,23 @@ exports[`InputNumber :props :mode, without class t-is-controls-right 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -539,7 +603,7 @@ exports[`InputNumber :props :mode, without class t-is-controls-right 1`] = `
 
 exports[`InputNumber :props :mode:column, with class t-is-controls-right 1`] = `
 <div
-  class="t-input-number t-size-m t-is-controls-right"
+  class="t-input-number t-size-m t-is-controls-right t-input-number--column"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -567,15 +631,23 @@ exports[`InputNumber :props :mode:column, with class t-is-controls-right 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
       class="t-input"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
         class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -606,7 +678,7 @@ exports[`InputNumber :props :mode:column, with class t-is-controls-right 1`] = `
 
 exports[`InputNumber :props :mode:row, without class t-is-controls-right 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -634,15 +706,23 @@ exports[`InputNumber :props :mode:row, without class t-is-controls-right 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -673,7 +753,7 @@ exports[`InputNumber :props :mode:row, without class t-is-controls-right 1`] = `
 
 exports[`InputNumber :props :size:large, with class t-size-l 1`] = `
 <div
-  class="t-input-number t-size-l"
+  class="t-input-number t-size-l t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -700,15 +780,23 @@ exports[`InputNumber :props :size:large, with class t-size-l 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -738,7 +826,7 @@ exports[`InputNumber :props :size:large, with class t-size-l 1`] = `
 
 exports[`InputNumber :props :size:medium, with class t-size-m 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -766,15 +854,23 @@ exports[`InputNumber :props :size:medium, with class t-size-m 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -805,7 +901,7 @@ exports[`InputNumber :props :size:medium, with class t-size-m 1`] = `
 
 exports[`InputNumber :props :size:small, with class t-size-s 1`] = `
 <div
-  class="t-input-number t-size-s"
+  class="t-input-number t-size-s t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -832,15 +928,23 @@ exports[`InputNumber :props :size:small, with class t-size-s 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -870,7 +974,7 @@ exports[`InputNumber :props :size:small, with class t-size-s 1`] = `
 
 exports[`InputNumber :props :step, 2 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -898,15 +1002,23 @@ exports[`InputNumber :props :step, 2 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -937,7 +1049,7 @@ exports[`InputNumber :props :step, 2 1`] = `
 
 exports[`InputNumber :props :value, 6 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -965,15 +1077,23 @@ exports[`InputNumber :props :value, 6 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"
@@ -1004,7 +1124,7 @@ exports[`InputNumber :props :value, 6 1`] = `
 
 exports[`InputNumber :props class, with class t-input-number 1`] = `
 <div
-  class="t-input-number t-size-m"
+  class="t-input-number t-size-m t-input-number--row"
 >
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__decrease"
@@ -1032,15 +1152,23 @@ exports[`InputNumber :props class, with class t-input-number 1`] = `
   </button>
   <div
     class="t-input__wrap"
+    unselectable="off"
   >
     <div
-      class="t-input"
+      class="t-input t-align-center"
     >
+      <!---->
+      <!---->
       <input
-        autocomplete="off"
-        class="t-input__inner t-input-number-text-align"
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
       />
+      <!---->
+      <!---->
+      <!---->
     </div>
+    <!---->
   </div>
   <button
     class="t-button t-size-m t-button--variant-outline t-button--theme-default t-button--shape-square t-button--icon-only t-input-number__increase"

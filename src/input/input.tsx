@@ -27,7 +27,6 @@ function getValidAttrs(obj: Record<string, unknown>): Record<string, unknown> {
 export default defineComponent({
   ...mixins(getConfigReceiverMixins<InputConfig>('input')),
   name: 'TInput',
-  inheritAttrs: false,
   props: { ...props },
   emits: ['enter', 'keydown', 'keyup', 'keypress', 'clear', 'change', 'focus', 'blur', 'click'],
   setup() {
@@ -57,7 +56,9 @@ export default defineComponent({
   },
   computed: {
     showClear(): boolean {
-      return (this.value && !this.disabled && this.clearable && this.isHover) || this.showClearIconOnEmpty;
+      return (
+        (this.value && !this.disabled && this.clearable && this.isHover && !this.readonly) || this.showClearIconOnEmpty
+      );
     },
     tPlaceholder(): string {
       return this.placeholder ?? this.t(this.global.placeholder);
@@ -194,7 +195,7 @@ export default defineComponent({
     },
     emitFocus(e: FocusEvent) {
       this.inputValue = this.value;
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       this.focused = true;
       emitEvent(this, 'focus', this.value, { e });
     },
@@ -257,15 +258,13 @@ export default defineComponent({
       onBlur: this.formatAndEmitBlur,
       onKeydown: this.handleKeydown,
       onKeyup: this.handleKeyUp,
-      onKeypresss: this.handleKeypress,
+      onKeypress: this.handleKeypress,
       onPaste: this.onHandlePaste,
       onCompositionend: this.onHandleCompositionend,
       onCompositionstart: this.onHandleonCompositionstart,
       // input的change事件是失去焦点或者keydown的时候执行。这与api定义的change不符，所以不做任何变化。
       // eslint-disable-next-line @typescript-eslint/no-empty-function
     });
-
-    const wrapperAttrs = omit(this.$attrs, [...Object.keys(inputEvents), ...Object.keys(this.inputAttrs), 'input']);
 
     const prefixIcon = this.renderIcon(this.prefixIcon, 'prefix-icon');
 
@@ -291,6 +290,7 @@ export default defineComponent({
 
     const classes = [
       COMPONENT_NAME,
+      this.inputClass,
       {
         [SIZE[this.size]]: this.size !== 'medium',
         [STATUS.disabled]: this.disabled,
@@ -311,7 +311,6 @@ export default defineComponent({
         onMouseenter={this.onInputMouseenter}
         onMouseleave={this.onInputMouseleave}
         onWheel={this.onHandleMousewheel}
-        {...wrapperAttrs}
       >
         {prefixIcon ? (
           <span class={[`${COMPONENT_NAME}__prefix`, `${COMPONENT_NAME}__prefix-icon`]}>{prefixIcon}</span>
@@ -319,7 +318,7 @@ export default defineComponent({
         {labelContent}
         <input
           class={`${COMPONENT_NAME}__inner`}
-          {...{ ...this.inputAttrs }}
+          {...this.inputAttrs}
           {...inputEvents}
           ref="inputRef"
           value={this.inputValue}
