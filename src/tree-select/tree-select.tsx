@@ -10,6 +10,7 @@ import SelectInput from '../select-input';
 import { TagInputChangeContext } from '../tag-input';
 import { PopupProps } from '../popup';
 import { InputValue } from '../input';
+import FakeArrow from '../common-components/fake-arrow';
 
 import { IRemoveOptions, INodeOptions, ISelectInputSlot } from './interface';
 import { TreeSelectValue } from './type';
@@ -400,6 +401,10 @@ export default defineComponent({
         {...props.treeProps}
       />
     );
+
+    const renderSuffixIcon = computed(() => {
+      return <FakeArrow isActive={true} disabled={props.disabled} />;
+    });
     const SelectInputSlots: ISelectInputSlot = {
       panel: () => (
         <div>
@@ -450,6 +455,7 @@ export default defineComponent({
       <SelectInput
         ref={selectInputRef}
         v-slots={SelectInputSlots}
+        suffixIcon={() => renderSuffixIcon.value}
         value={nodeInfo.value}
         multiple={props.multiple}
         loading={props.loading}
